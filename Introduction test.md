@@ -1,10 +1,6 @@
-# Introduction test
-
 ---
-
 title: Introduction toto titi
-description: 'Welcome to the home of your new documentation'
-
+description: "Welcome to the home of your new documentation"
 ---
 
 <img
