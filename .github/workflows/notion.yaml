@@ -23,20 +23,28 @@ jobs:
           pip install -r .notion-exporter/requirements.txt
       - name: Export notion
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_FILE_TOKEN: ${{ secrets.NOTION_FILE_TOKEN }}
+          NOTION_PAGE: ${{ vars.NOTION_PAGE }}
         run: |
           python .notion-exporter/export.py
+          python .notion-exporter/format.py
       - name: Commit files
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git checkout -b notion-export || git checkout notion-export
-          git add ./.notion-exporter/*
+          git add --all
           git commit -m "Add changes"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: notion-export
+      - name: Create Pull Request
+        uses: peter-evans/create-or-update-pull-request@v5
+        with:
+          title: Export notion
+          body: Export notion
+          branch: notion-export
+          assignees: cploujoux
