@@ -46,5 +46,5 @@ jobs:
         with:
           title: Export notion
           body: Export notion
-          branch: notion-export
+          branch: main
           assignees: cploujoux
