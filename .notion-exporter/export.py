@@ -12,6 +12,7 @@ if __name__ == "__main__":
         file_token=notion_file_token,
         pages={"Documentation": page},
         export_directory=".notion-exporter",
+        export_name="export",
         flatten_export_file_tree=True,
         export_type=ExportType.MARKDOWN,
         current_view_export_type=ViewExportType.CURRENT_VIEW,

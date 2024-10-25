@@ -3,6 +3,10 @@ name: Export my notion workspace
 on:
   workflow_dispatch: {}
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   export:
     runs-on: ubuntu-latest
@@ -25,3 +29,15 @@ jobs:
         run: |
           cd .notion-exporter
           python export.py
+      - name: Commit files
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git checkout -b notion-export || git checkout notion-export
+          git add ./.notion-exporter/*
+          git commit -m "Add changes"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: notion-export
