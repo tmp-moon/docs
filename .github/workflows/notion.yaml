@@ -42,7 +42,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: notion-export
       - name: Create Pull Request
-        uses: peter-evans/create-or-update-pull-request@v5
+        uses: peter-evans/create-pull-request@v7
         with:
           title: Export notion
           body: Export notion
