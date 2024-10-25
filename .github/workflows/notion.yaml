@@ -34,15 +34,15 @@ jobs:
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git checkout -b $GITHUB_RUN_ID || git checkout $GITHUB_RUN_ID
+          git checkout -b notion-export/$GITHUB_RUN_ID || git checkout notion-export/$GITHUB_RUN_ID
           git add --all
           git commit -m "Add changes"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ GITHUB_RUN_ID }}
+          branch: notion-export/${{ github.run_id }}
       - name: create pull request
-        run: gh pr create -B main -H $GITHUB_RUN_ID --title 'Merge notion export' --body 'Created by Github action'
+        run: gh pr create -B main -H notion-export/$GITHUB_RUN_ID --title 'Merge notion export' --body 'Created by Github action'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
