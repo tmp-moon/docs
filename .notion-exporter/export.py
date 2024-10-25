@@ -10,7 +10,7 @@ if __name__ == "__main__":
         token_v2=notion_token,
         file_token=notion_file_token,
         pages={"Documentation": page},
-        export_directory=".notion-exporter",
+        export_directory=".",
         export_name="export",
         flatten_export_file_tree=False,
         export_type=ExportType.MARKDOWN,
