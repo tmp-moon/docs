@@ -41,8 +41,8 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ env.GITHUB_RUN_ID }}
+          branch: ${{ GITHUB_RUN_ID }}
       - name: create pull request
-        run: gh pr create -B main -H notion-export --title 'Merge notion export' --body 'Created by Github action'
+        run: gh pr create -B main -H $GITHUB_RUN_ID --title 'Merge notion export' --body 'Created by Github action'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
