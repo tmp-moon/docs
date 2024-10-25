@@ -27,9 +27,7 @@ jobs:
           NOTION_FILE_TOKEN: ${{ secrets.NOTION_FILE_TOKEN }}
           NOTION_PAGE: ${{ vars.NOTION_PAGE }}
         run: |
-          python .notion-exporter/export.py
-          python .notion-exporter/format.py
-          rm -rf export
+          make run
       - name: Commit files
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
