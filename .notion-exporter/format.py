@@ -31,7 +31,7 @@ def copy_file(file_path, file_name, destination_folder):
 def process_export_folder():
   os.chdir(f"export/Documentation {page}/")
 
-  destination_folder = "../../format"
+  destination_folder = "../.."
   for root, _, files in os.walk("./"):
     for file in files:
       file_path = os.path.join(root, file)
