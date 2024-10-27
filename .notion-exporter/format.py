@@ -82,6 +82,20 @@ def rewrite_title(file_path):
     while new_content.startswith('\n'):
         new_content = new_content[1:]
 
+    # Replace quotes until we hit the second ---
+    first_separator = new_content.find('---')
+    if first_separator != -1:
+        second_separator = new_content.find('---', first_separator + 3)
+        if second_separator != -1:
+            # Get the content between the separators
+            front_matter = new_content[first_separator:second_separator + 3]
+            # Replace quotes in front matter
+            front_matter = front_matter.replace('“', "\"")
+            front_matter = front_matter.replace('”', "\"")
+            front_matter = front_matter.replace('‘', "'")
+            front_matter = front_matter.replace('’', "'")
+            # Reconstruct the content
+            new_content = new_content[:first_separator] + front_matter + new_content[second_separator + 3:]
     # Write the modified content back to the file
     if content != new_content:
       with open(file_path, 'w', encoding='utf-8') as f:
