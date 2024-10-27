@@ -7,11 +7,11 @@
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
+    "primary": "#FD7B35",
     "light": "#07C983",
     "dark": "#0D9373",
     "anchors": {
-      "from": "#0D9373",
+      "from": "#FD7B35",
       "to": "#07C983"
     }
   },
@@ -52,34 +52,14 @@
     {
       "group": "Get Started",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "overview",
+        "get-started"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "Models",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
-      ]
-    },
-    {
-      "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction"
-      ]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "model-deployment"
       ]
     }
   ],
