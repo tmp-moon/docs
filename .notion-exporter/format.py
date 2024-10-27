@@ -79,6 +79,8 @@ def rewrite_title(file_path):
     # Remove the title line from content
     new_content = re.sub(pattern, '', content, 1)
 
+    new_content = new_content.replace("“", '"')
+    new_content = new_content.replace("”", '"')
     # Write the modified content back to the file
     if content != new_content:
       with open(file_path, 'w', encoding='utf-8') as f:
