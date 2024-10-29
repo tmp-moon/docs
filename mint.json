@@ -1,4 +1,5 @@
 {
+  "$schema": "https://mintlify.com/schema.json",
   "name": "Documentation",
   "logo": {
     "dark": "/images/logo-dark.svg",
@@ -8,7 +9,7 @@
   "colors": {
     "primary": "#FD7B35",
     "light": "#FD7B35",
-    "dark": "#FD7B35",
+    "dark": "#C75617",
     "anchors": {
       "from": "#FD7B35",
       "to": "#FD7B35"
@@ -17,11 +18,11 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "support@beamlit.com"
     }
   ],
   "topbarCtaButton": {
-    "name": "Beamlit",
+    "name": "Beamlit Console",
     "url": "https://app.beamlit.com"
   },
   "tabs": [
@@ -30,46 +31,64 @@
       "url": "api-reference"
     }
   ],
-  "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://www.beamlit.com"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://www.beamlit.com"
-    }
-  ],
   "navigation": [
     {
-      "group": "Get me Started",
+      "group": "Get Started",
       "pages": [
-        "overview",
-        "get-started"
+        "Overview",
+        "Get-started"
       ]
     },
     {
-      "group": "Models testo",
+      "group": "Examples",
       "pages": [
-        "model-deployment",
-        "Models/Query a model",
+        "Examples/Deploy-a-custom-model-from-HuggingFace",
+        "Examples/Offload-burst-inferences-from-a-self-hosted-model",
+        "Examples/Deploy-Llama-3-10B-from-HuggingFace"
+      ]
+    },
+    {
+      "group": "Models",
+      "pages": [
+        "Models/Model-deployment",
+        "Models/Global-Inference-Network",
+        "Models/Query-a-model",
         {
-          "group": "Cloud Burst Network Test",
-          "pages": ["Models/Cloud-Burst-Network/Model-overflow"]
+          "group": "Cloud Burst Network",
+          "pages": [
+            "Models/Cloud-Burst-Network/Model-overflow",
+            "Models/Cloud-Burst-Network/Install-Beamlit-operator",
+            "Models/Cloud-Burst-Network/Cluster-configurations"
+          ]
         }
       ]
+    },
+    {
+      "group": "Model-Governance",
+      "pages": [
+        "Model-Governance/Environments",
+        "Model-Governance/Dev-and-prod-lifecycle",
+        "Model-Governance/Policies"
+      ]
+    },
+    {
+      "group": "Observability",
+      "pages": [
+        "Observability/View-model-logs",
+        "Observability/View-model-metrics"
+      ]
+    },
+    {
+      "group": "Security",
+      "pages": [
+        "Security/Workspace-access-control"
+      ]
+    },
+    {
+      "group": "Integrations",
+      "pages": [
+        "Integrations/HuggingFace"
+      ]
     }
-  ],
-  "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://linkedin.com/company/mintlify"
-  }
+  ]
 }
