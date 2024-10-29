@@ -62,7 +62,7 @@
         "Models/Query a model",
         {
           "group": "Cloud Burst Network",
-          "pages": ["Models/Cloud Burst Network/Model overflow"]
+          "pages": ["Models/Cloud Burst Network/Model-overflow"]
         }
       ]
     }
