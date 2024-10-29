@@ -49,7 +49,7 @@
   ],
   "navigation": [
     {
-      "group": "Getting Started",
+      "group": "Get Started",
       "pages": [
         "overview",
         "get-started"
@@ -58,7 +58,9 @@
     {
       "group": "Models",
       "pages": [
-        "model-deployment"
+        "model-deployment",
+        "Models/Query a model",
+        "Models/Cloud Burst Network/Model overflow"
       ]
     }
   ],
