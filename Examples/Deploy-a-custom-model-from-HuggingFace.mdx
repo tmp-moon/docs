@@ -2,7 +2,73 @@ This tutorial will show you how to use the Beamlit console to deploy a custom mo
 
 ## Prerequisites
 
-- An access token for HuggingFace. Read about how to generate an access token on [this HuggingFace guide](https://huggingface.co/docs/hub/security-tokens).
-- 
+- A Beamlit workspace
+- A custom model that has been saved on a HuggingFace repository
+- A [HuggingFace](https://huggingface.co/) account
+- A HuggingFace access token that has access to the aforementioned model. Read about how to generate an access token on [this HuggingFace guide](https://huggingface.co/docs/hub/security-tokens).
 
 ## Guide
+
+### (Development phase) Connect to HuggingFace with a personal account
+
+<Note>This method allows to get started fast but is not recommended for production.</Note>
+
+Go to Global Inference Network > Models within your Beamlit workspace. Once there, start creating a new model. 
+
+[picture of models + create]
+
+Select the **Deploy from HuggingFace** option.
+
+You'll need to connect your HuggingFace account to Beamlit. Click on **Connect my HuggingFace account** to proceed. 
+
+[picture of hf]
+
+You will be prompted to sign in in a new window using your personal HuggingFace credentials.
+
+An access token will be saved as a [workspace integration](../Integrations/HuggingFace.md), allowing for access by you and other members of the workspace. This token has an expiration duration of **30 days**, after which it will no longer be valid. 
+
+<Tip>To launch a production-grade version of your model, you should connect an HuggingFace token in the Integrations in the workspace settings. This is explained below.</Tip>
+
+### (Production-grade) Improve to a workspace integration
+
+For the connection to stay valid for longer than 30 days, you must use a [user access token](https://huggingface.co/docs/hub/security-tokens) generated on the HuggingFace console.
+
+Go in **Workspace Settings > Integrations**, and look for *HuggingFace*.
+
+[screen for integrations]
+
+Paste your user access token from HuggingFace. If there is already a token there, you can also replace it. All model deployments will start using the new token to connect to HuggingFace.
+
+### Deploy the model
+
+In **Global Inference Network > Models > Create a new model**, after having selected **Deploy from HuggingFace,** validate that the workspace configuration is correctly set and is being used for the model creation.
+
+[screen of first step]
+
+Then, choose a HuggingFace model to deploy using the search tool. You can search for both the organization name or model name. 
+
+<Info>You can select any model that the integration’s access token has access to.</Info>
+
+[screen of search step]
+
+Then, move on to the next step. Keep the [environment](../Model-Governance/Environments.md) set to *production* without any additional policy. 
+
+Give a name, then deploy the model.
+
+You can also run the following CLI command to deploy your model to the *production* environment: 
+
+```
+beamlit my-command TO COMPLETE
+```
+
+That’s it! Your model is deployed and ready to be called using the inference endpoint.
+
+### Call the model
+
+Use your model deployment’s [inference endpoint](../Models/Query-a-model.md) to make an inference request. The base URL should look like the following:
+
+`edge-gw.beamlit.net/your-workspace/your-model`
+
+If your HuggingFace model implements any other endpoint, they will be served on the URL above. For example:
+
+`edge-gw.beamlit.net/your-workspace/your-model/v1/chat/completions`
