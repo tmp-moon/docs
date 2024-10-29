@@ -60,7 +60,10 @@
       "pages": [
         "model-deployment",
         "Models/Query a model",
-        "Models/Cloud Burst Network/Model overflow"
+        {
+          "group": "Cloud Burst Network",
+          "pages": ["Models/Cloud Burst Network/Model overflow"]
+        }
       ]
     }
   ],
