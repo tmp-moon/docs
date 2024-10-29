@@ -56,13 +56,13 @@
       ]
     },
     {
-      "group": "Models",
+      "group": "Models testo",
       "pages": [
         "model-deployment",
         "Models/Query a model",
         {
-          "group": "Cloud Burst Network",
-          "pages": ["Models/Cloud Burst Network/Model-overflow"]
+          "group": "Cloud Burst Network Test",
+          "pages": ["Models/Cloud-Burst-Network/Model-overflow"]
         }
       ]
     }
