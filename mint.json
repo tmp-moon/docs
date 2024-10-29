@@ -64,7 +64,7 @@
       ]
     },
     {
-      "group": "Model-Governance",
+      "group": "Model Governance",
       "pages": [
         "Model-Governance/Environments",
         "Model-Governance/Dev-and-prod-lifecycle",
