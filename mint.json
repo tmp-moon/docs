@@ -5,6 +5,9 @@
     "dark": "/images/logo-dark.svg",
     "light": "/images/logo-light.svg"
   },
+  "primaryTab": {
+    "name": "Documentation"
+  },
   "favicon": "/favicon.png",
   "colors": {
     "primary": "#FD7B35",
@@ -33,6 +36,12 @@
     }
   ],
   "navigation": [
+    {
+      "group": "API ref",
+      "pages": [
+        "api-reference/introduction"
+      ]
+    },
     {
       "group": "Get Started",
       "pages": [
