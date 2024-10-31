@@ -31,13 +31,13 @@
   "tabs": [
     {
       "name": "API Reference",
-      "openapi": "/api-reference/openapi.json",
+      "openapi": "/api-reference/controlplane.yml",
       "url": "api-reference"
     }
   ],
   "navigation": [
     {
-      "group": "API ref",
+      "group": "Overview",
       "pages": [
         "api-reference/introduction"
       ]
