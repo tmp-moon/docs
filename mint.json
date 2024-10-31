@@ -29,7 +29,7 @@
     {
       "name": "API Reference",
       "openapi": "/api-reference/openapi.json",
-      "url": "api-reference/introduction"
+      "url": "api-reference"
     }
   ],
   "navigation": [
