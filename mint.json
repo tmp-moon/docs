@@ -28,7 +28,8 @@
   "tabs": [
     {
       "name": "API Reference",
-      "url": "api-reference/openapi.json"
+      "openapi": "api-reference/openapi.json",
+      "url": "api-reference/introduction"
     }
   ],
   "navigation": [
