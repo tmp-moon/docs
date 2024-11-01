@@ -33,6 +33,10 @@
       "name": "API Reference",
       "openapi": "/api-reference/controlplane.yml",
       "url": "api-reference"
+    },
+    {
+      "name": "CLI Reference",
+      "url": "cli-reference"
     }
   ],
   "navigation": [
@@ -40,6 +44,12 @@
       "group": "Overview",
       "pages": [
         "api-reference/introduction"
+      ]
+    },
+    {
+      "group": "Commands",
+      "pages": [
+        "cli-reference/beamlit"
       ]
     },
     {
