@@ -47,17 +47,23 @@
       ]
     },
     {
-      "group": "Commands",
+      "group": "Authentication",
       "pages": [
-        "cli-reference/beamlit",
+        "cli-reference/beamlit_login",
+        "cli-reference/beamlit_set-workspace",
+        "cli-reference/beamlit_logout"        
+      ]
+    },
+    {
+      "group": "Run inferences",
+      "pages": [
+        "cli-reference/beamlit_run"
+      ]
+    },
+    {
+      "group": "Manage resources",
+      "pages": [
         "cli-reference/beamlit_apply",
-        "cli-reference/beamlit_delete",
-        "cli-reference/beamlit_delete_environment",
-        "cli-reference/beamlit_delete_location",
-        "cli-reference/beamlit_delete_model",
-        "cli-reference/beamlit_delete_modelprovider",
-        "cli-reference/beamlit_delete_policy",
-        "cli-reference/beamlit_delete_tool",
         "cli-reference/beamlit_get-workspace",
         "cli-reference/beamlit_get-workspaces",
         "cli-reference/beamlit_get",
@@ -67,10 +73,13 @@
         "cli-reference/beamlit_get_models",
         "cli-reference/beamlit_get_policies",
         "cli-reference/beamlit_get_tools",
-        "cli-reference/beamlit_login",
-        "cli-reference/beamlit_logout",
-        "cli-reference/beamlit_run",
-        "cli-reference/beamlit_set-workspace"
+        "cli-reference/beamlit_delete",
+        "cli-reference/beamlit_delete_environment",
+        "cli-reference/beamlit_delete_location",
+        "cli-reference/beamlit_delete_model",
+        "cli-reference/beamlit_delete_modelprovider",
+        "cli-reference/beamlit_delete_policy",
+        "cli-reference/beamlit_delete_tool"
       ]
     },
     {
