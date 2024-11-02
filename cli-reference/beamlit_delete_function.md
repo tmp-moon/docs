@@ -1,15 +1,15 @@
-## beamlit delete modelprovider
+## beamlit delete function
 
-Delete a ModelProvider
+Delete a Function
 
 ```
-beamlit delete modelprovider [flags]
+beamlit delete function [flags]
 ```
 
 ### Options
 
 ```
-  -h, --help   help for modelprovider
+  -h, --help   help for function
 ```
 
 ### Options inherited from parent commands

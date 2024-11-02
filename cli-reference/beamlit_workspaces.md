@@ -1,15 +1,15 @@
-## beamlit delete modelprovider
+## beamlit workspaces
 
-Delete a ModelProvider
+List all workspaces with the current workspace highlighted, set optionally a new current workspace
 
 ```
-beamlit delete modelprovider [flags]
+beamlit workspaces [workspace] [flags]
 ```
 
 ### Options
 
 ```
-  -h, --help   help for modelprovider
+  -h, --help   help for workspaces
 ```
 
 ### Options inherited from parent commands
@@ -22,5 +22,5 @@ beamlit delete modelprovider [flags]
 
 ### SEE ALSO
 
-* [beamlit delete](beamlit_delete.md)	 - Delete a resource
+* [beamlit](beamlit.md)	 - Beamlit CLI is a command line tool to interact with Beamlit APIs.
 

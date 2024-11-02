@@ -53,6 +53,38 @@ components:
       description: Array of metrics
       items:
         $ref: '#/components/schemas/Metric'
+    Configuration:
+      type: object
+      description: Configuration
+      properties:
+        continents:
+          type: array
+          description: Continents
+          items: {}
+        countries:
+          type: array
+          description: Countries
+          items: {}
+    Continent:
+      type: object
+      description: Continent
+      properties:
+        display_name:
+          type: string
+          description: Continent display name
+        name:
+          type: string
+          description: Continent code
+    Country:
+      type: object
+      description: Configuration
+      properties:
+        display_name:
+          type: string
+          description: Country display name
+        name:
+          type: string
+          description: Country code
     DeploymentPolicies:
       type: array
       items:
@@ -86,9 +118,6 @@ components:
         target:
           type: string
           description: Target value for the metric
-        termination_grace_period_seconds:
-          type: integer
-          description: The termination grace period seconds
     Environment:
       type: object
       description: Environment on which deployments will be made (e.g. development,
@@ -133,12 +162,99 @@ components:
       description: Types of hardware available for deployments
       items:
         $ref: '#/components/schemas/Flavor'
+    Function:
+      type: object
+      description: Function parent of FunctionDeployment
+      allOf:
+      - $ref: '#/components/schemas/StandardFieldsDynamoDb'
+      - properties:
+          description:
+            type: string
+            description: Function description, very important for the agent function
+              to work with an LLM
+          display_name:
+            type: string
+            description: Function display name
+          labels:
+            $ref: '#/components/schemas/Labels'
+          name:
+            type: string
+            description: Function name
+          parameters:
+            type: array
+            description: Function parameters, for your function to be callable with
+              Agent
+            items:
+              $ref: '#/components/schemas/StoreAgentFunctionParameter'
+          store_id:
+            type: string
+            description: Create from a store registered function
+          workspace:
+            type: string
+            description: Workspace name
+    FunctionDeployment:
+      type: object
+      description: Function deployment configuration
+      allOf:
+      - $ref: '#/components/schemas/StandardFieldsDynamoDb'
+      - properties:
+          enabled:
+            type: boolean
+            description: Whether the function deployment is enabled
+          environment:
+            type: string
+            description: The name of the environment
+          flavors:
+            $ref: '#/components/schemas/Flavors'
+          function:
+            type: string
+            description: The name of the function
+          labels:
+            $ref: '#/components/schemas/Labels'
+          pod_template:
+            type: object
+            description: The pod template, should be a valid Kubernetes pod template
+          policies:
+            $ref: '#/components/schemas/DeploymentPolicies'
+          runtime_configuration:
+            $ref: '#/components/schemas/RuntimeConfiguration'
+          serverless_config:
+            $ref: '#/components/schemas/DeploymentServerlessConfig'
+          workspace:
+            type: string
+            description: The workspace the function deployment belongs to
+    FunctionPolicies:
+      description: Policies to apply to the model deployment
+      items:
+        description: Policy name
+        type: string
+      type: array
+    FunctionProviderRef:
+      description: Reference to a model provider
+      properties:
+        kind:
+          description: The kind of the model provider, can be Provider
+          type: string
+        name:
+          description: The name of the model provider
+          type: string
+      type: object
+    FunctionRelease:
+      type: object
+      description: Function release, used to deploy a function from one environment
+        to another
+      properties:
+        from:
+          type: string
+          description: Origin environment from which the function is released
+        to:
+          type: string
+          description: Destination environment to which the function is released
     Labels:
       type: object
       description: Labels
-      properties:
-        string:
-          type: string
+      additionalProperties:
+        type: string
     Location:
       description: Location availability for policies
       properties:
@@ -232,6 +348,8 @@ components:
             type: string
             description: The name of the environment in which the model deployment
               is deployed
+          flavors:
+            $ref: '#/components/schemas/Flavors'
           labels:
             $ref: '#/components/schemas/Labels'
           metric_port:
@@ -267,17 +385,16 @@ components:
             type: string
             description: The workspace the model deployment belongs to
     ModelDeploymentLog:
-      type: object
       description: Log for a model deployment
       properties:
         message:
-          type: string
           description: Content of the log
-        timestamp:
           type: string
+        timestamp:
           description: The timestamp of the log
-    ModelDeploymentMetrics:
+          type: string
       type: object
+    ModelDeploymentMetrics:
       description: Metrics for a single model deployment
       properties:
         inference_per_second_global:
@@ -285,15 +402,15 @@ components:
           description: Historical requests per second (RPS), for the model deployment
             globally
         inference_per_second_per_region:
-          type: object
           description: Historical requests per second (RPS) per location, for the
             model deployment
           properties:
             region:
               $ref: '#/components/schemas/ArrayMetric'
+          type: object
         query_per_second_global:
-          type: number
           description: RPS value (in last 24 hours) for the model deployment globally
+          type: number
         query_per_second_per_code_global:
           $ref: '#/components/schemas/QPS'
           description: RPS value (in last 24 hours) per response status code, for
@@ -302,14 +419,14 @@ components:
           $ref: '#/components/schemas/QPS'
           description: RPS value (in last 24 hours) per location, for the model deployment
         query_per_second_per_region_per_code:
-          type: object
           description: RPS value (in last 24 hours) per response status code per location,
             for the model deployment
           properties:
             region:
               $ref: '#/components/schemas/QPS'
-    ModelMetrics:
+          type: object
       type: object
+    ModelMetrics:
       description: Metrics for a single model
       properties:
         inference_per_second_global:
@@ -318,6 +435,7 @@ components:
         query_per_second_per_region:
           $ref: '#/components/schemas/QPS'
           description: RPS value (in last 24 hours) per location, for the model
+      type: object
     ModelPolicies:
       description: Policies to apply to the model deployment
       items:
@@ -462,6 +580,10 @@ components:
           name:
             type: string
             description: Policy name
+          resource_types:
+            $ref: '#/components/schemas/PolicyResourceTypes'
+            description: ResourceTypes where the policy is applied. If not set, the
+              policy is applied to all resource types.
           type:
             type: string
             description: Policy type, can be location or flavor
@@ -489,6 +611,15 @@ components:
       description: PolicyLocations is a local type that wraps a slice of Location
       items:
         $ref: '#/components/schemas/PolicyLocation'
+    PolicyResourceType:
+      type: string
+      description: PolicyResourceType is a type of resource, e.g. model, function,
+        etc.
+    PolicyResourceTypes:
+      type: array
+      description: PolicyResourceTypes is a local type that wraps a slice of PolicyResourceType
+      items:
+        $ref: '#/components/schemas/PolicyResourceType'
     ProviderConfig:
       type: object
       description: Model provider config
@@ -567,6 +698,59 @@ components:
         region_code:
           type: number
           description: QPS for location
+    ResourceDeploymentLog:
+      type: object
+      description: Log for a resource deployment (eg. model deployment, function deployment)
+      properties:
+        message:
+          type: string
+          description: Content of the log
+        timestamp:
+          type: string
+          description: The timestamp of the log
+    ResourceDeploymentMetrics:
+      type: object
+      description: Metrics for a single resource deployment (eg. model deployment,
+        function deployment)
+      properties:
+        inference_per_second_global:
+          $ref: '#/components/schemas/ArrayMetric'
+          description: Historical requests per second (RPS), for the model deployment
+            globally
+        inference_per_second_per_region:
+          type: object
+          description: Historical requests per second (RPS) per location, for the
+            model deployment
+          properties:
+            region:
+              $ref: '#/components/schemas/ArrayMetric'
+        query_per_second_global:
+          type: number
+          description: RPS value (in last 24 hours) for the model deployment globally
+        query_per_second_per_code_global:
+          $ref: '#/components/schemas/QPS'
+          description: RPS value (in last 24 hours) per response status code, for
+            the model deployment globally
+        query_per_second_per_region:
+          $ref: '#/components/schemas/QPS'
+          description: RPS value (in last 24 hours) per location, for the model deployment
+        query_per_second_per_region_per_code:
+          type: object
+          description: RPS value (in last 24 hours) per response status code per location,
+            for the model deployment
+          properties:
+            region:
+              $ref: '#/components/schemas/QPS'
+    ResourceMetrics:
+      type: object
+      description: Metrics for a single resource (eg. model, function)
+      properties:
+        inference_per_second_global:
+          $ref: '#/components/schemas/ArrayMetric'
+          description: Historical requests per second (RPS), for the model globally
+        query_per_second_per_region:
+          $ref: '#/components/schemas/QPS'
+          description: RPS value (in last 24 hours) per location, for the model
     RuntimeConfiguration:
       type: object
       description: Runtime configuration for the model deployment
@@ -574,6 +758,10 @@ components:
         args:
           type: array
           description: The arguments to pass to the model
+          items: {}
+        command:
+          type: array
+          description: The command to run the model
           items: {}
         envs:
           type: array
@@ -630,162 +818,88 @@ components:
         updated_at:
           type: string
           description: The date and time when the resource was updated
-    StoreAgentTool:
+    StoreAgentFunction:
       type: object
-      description: Store agent tool
+      description: Store agent function
       allOf:
       - $ref: '#/components/schemas/StandardFieldsDynamoDb'
       - properties:
           description:
             type: string
-            description: Store agent tool description
+            description: Store agent function description
           display_name:
             type: string
-            description: Store agent tool display name
+            description: Store agent function display name
           image:
             type: string
-            description: Store agent tool image
+            description: Store agent function image
           labels:
             type: object
-            description: Store agent tool labels
+            description: Store agent function labels
           name:
             type: string
-            description: Store agent tool name
+            description: Store agent function name
           parameters:
             type: array
-            description: Store agent tool parameters
+            description: Store agent function parameters
             items:
-              $ref: '#/components/schemas/StoreAgentToolParameter'
-    StoreAgentToolParameter:
+              $ref: '#/components/schemas/StoreAgentFunctionParameter'
+    StoreAgentFunctionParameter:
       type: object
-      description: Store agent tool parameter
+      description: Store agent function parameter
       properties:
         description:
           type: string
-          description: Store agent tool parameter description
+          description: Store agent function parameter description
         name:
           type: string
-          description: Store agent tool parameter name
+          description: Store agent function parameter name
         required:
           type: boolean
-          description: Store agent tool parameter required
+          description: Store agent function parameter required
         type:
           type: string
-          description: Store agent tool parameter type
-    StoreTool:
+          description: Store agent function parameter type
+    StoreFunction:
       allOf:
       - $ref: '#/components/schemas/StandardFieldsDynamoDb'
       - properties:
           description:
-            description: Store agent tool description
+            description: Store agent function description
             type: string
           display_name:
-            description: Store agent tool display name
+            description: Store agent function display name
             type: string
           image:
-            description: Store agent tool image
+            description: Store agent function image
             type: string
           labels:
-            description: Store agent tool labels
+            description: Store agent function labels
             type: object
           name:
-            description: Store agent tool name
+            description: Store agent function name
             type: string
           parameters:
-            description: Store agent tool parameters
+            description: Store agent function parameters
             items:
-              $ref: '#/components/schemas/StoreToolParameter'
+              $ref: '#/components/schemas/StoreFunctionParameter'
             type: array
-      description: Store agent tool
+      description: Store agent function
       type: object
-    StoreToolParameter:
-      description: Store agent tool parameter
+    StoreFunctionParameter:
+      description: Store agent function parameter
       properties:
         description:
-          description: Store agent tool parameter description
+          description: Store agent function parameter description
           type: string
         name:
-          description: Store agent tool parameter name
+          description: Store agent function parameter name
           type: string
         required:
-          description: Store agent tool parameter required
+          description: Store agent function parameter required
           type: boolean
         type:
-          description: Store agent tool parameter type
-          type: string
-      type: object
-    Tool:
-      type: object
-      description: Tool parent of ToolDeployment
-      allOf:
-      - $ref: '#/components/schemas/StandardFieldsDynamoDb'
-      - properties:
-          description:
-            type: string
-            description: Tool description, very important for the agent tool to work
-              with an LLM
-          display_name:
-            type: string
-            description: Tool display name
-          labels:
-            $ref: '#/components/schemas/Labels'
-          name:
-            type: string
-            description: Tool name
-          parameters:
-            type: array
-            description: Tool parameters, for your function to be callable with Agent
-            items:
-              $ref: '#/components/schemas/StoreAgentToolParameter'
-          store_id:
-            type: string
-            description: Create from a store registered tool
-          workspace:
-            type: string
-            description: Workspace name
-    ToolDeployment:
-      type: object
-      description: Tool deployment configuration
-      allOf:
-      - $ref: '#/components/schemas/StandardFieldsDynamoDb'
-      - properties:
-          enabled:
-            type: boolean
-            description: Whether the tool deployment is enabled
-          environment:
-            type: string
-            description: The name of the environment
-          labels:
-            $ref: '#/components/schemas/Labels'
-          pod_template:
-            type: object
-            description: The pod template, should be a valid Kubernetes pod template
-          policies:
-            $ref: '#/components/schemas/DeploymentPolicies'
-          runtime_configuration:
-            $ref: '#/components/schemas/RuntimeConfiguration'
-          serverless_config:
-            $ref: '#/components/schemas/DeploymentServerlessConfig'
-          tool:
-            type: string
-            description: The name of the tool
-          workspace:
-            type: string
-            description: The workspace the tool deployment belongs to
-    ToolPolicies:
-      description: Policies to apply to the model deployment
-      items:
-        description: Policy name
-        type: string
-      type: array
-    ToolProviderRef:
-      description: Reference to a model provider
-      properties:
-        kind:
-          description: The kind of the model provider, can be Provider
-          type: string
-        name:
-          description: The name of the model provider
+          description: Store agent function parameter type
           type: string
       type: object
     Workspace:
@@ -838,6 +952,22 @@ info:
   version: 0.0.1
 openapi: 3.0.3
 paths:
+  /configuration:
+    get:
+      operationId: GetConfiguration
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Configuration'
+          description: Configuration of the control plane
+      security:
+      - BearerAuth:
+        - configurations:list
+      summary: List all configurations
+      tags:
+      - configurations
   /environments:
     get:
       operationId: ListEnvironments
@@ -945,6 +1075,278 @@ paths:
       summary: Get environment metrics by name
       tags:
       - environments
+  /functions:
+    get:
+      operationId: ListFunctions
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Function'
+                type: array
+          description: successful operation
+      security:
+      - BearerAuth:
+        - functions:list
+      summary: List all functions
+      tags:
+      - functions
+  /functions/{functionName}:
+    delete:
+      operationId: DeleteFunction
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Function'
+          description: successful operation
+      security:
+      - BearerAuth:
+        - functions:delete
+      summary: Delete function by name
+      tags:
+      - functions
+    get:
+      operationId: GetFunction
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Function'
+          description: successful operation
+      security:
+      - BearerAuth:
+        - functions:get
+      summary: Get function by name
+      tags:
+      - functions
+    parameters:
+    - description: Name of the function
+      in: path
+      name: functionName
+      required: true
+      schema:
+        type: string
+    put:
+      operationId: PutFunction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Function'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Function'
+          description: successful operation
+      security:
+      - BearerAuth:
+        - functions:update
+      summary: Update function by name
+      tags:
+      - functions
+  /functions/{functionName}/deployments:
+    get:
+      operationId: ListFunctionDeployments
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FunctionDeployment'
+                type: array
+          description: successful operation
+      security:
+      - BearerAuth:
+        - function_deployments:list
+      summary: List all function deployments
+      tags:
+      - functions
+    parameters:
+    - description: Name of the function
+      in: path
+      name: functionName
+      required: true
+      schema:
+        type: string
+  /functions/{functionName}/deployments/{environmentName}:
+    delete:
+      operationId: DeleteFunctionDeployment
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FunctionDeployment'
+          description: successful operation
+      security:
+      - BearerAuth:
+        - function_deployments:delete
+      summary: Delete function deployment by environment name
+      tags:
+      - functions
+    get:
+      operationId: GetFunctionDeployment
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FunctionDeployment'
+          description: successful operation
+      security:
+      - BearerAuth:
+        - function_deployments:get
+      summary: Get function deployment by environment name
+      tags:
+      - functions
+    parameters:
+    - description: Name of the function
+      in: path
+      name: functionName
+      required: true
+      schema:
+        type: string
+    - description: Name of the environment
+      in: path
+      name: environmentName
+      required: true
+      schema:
+        type: string
+    put:
+      operationId: PutFunctionDeployment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FunctionDeployment'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FunctionDeployment'
+          description: successful operation
+      security:
+      - BearerAuth:
+        - function_deployments:create
+        - function_deployments:update
+      summary: Create or update function deployment by environment name
+      tags:
+      - functions
+  /functions/{functionName}/deployments/{environmentName}/logs:
+    get:
+      operationId: GetFunctionDeploymentLogs
+      parameters:
+      - description: Name of the function
+        in: path
+        name: functionName
+        required: true
+        schema:
+          type: string
+      - description: Name of the environment
+        in: path
+        name: environmentName
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ResourceDeploymentLog'
+                type: array
+          description: successful operation
+      security:
+      - BearerAuth:
+        - function_deployments_logs:read
+      tags:
+      - functions
+  /functions/{functionName}/deployments/{environmentName}/metrics:
+    get:
+      operationId: GetFunctionDeploymentMetrics
+      parameters:
+      - description: Name of the function
+        in: path
+        name: functionName
+        required: true
+        schema:
+          type: string
+      - description: Name of the environment
+        in: path
+        name: environmentName
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceDeploymentMetrics'
+          description: successful operation
+      security:
+      - BearerAuth:
+        - function_deployments_metrics:read
+      tags:
+      - functions
+  /functions/{functionName}/metrics:
+    get:
+      operationId: GetFunctionMetrics
+      parameters:
+      - description: Name of the function
+        in: path
+        name: functionName
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceMetrics'
+          description: successful operation
+      security:
+      - BearerAuth:
+        - function_metrics:read
+      summary: Get function metrics
+      tags:
+      - functions
+  /functions/{functionName}/release:
+    parameters:
+    - description: Name of the function
+      in: path
+      name: functionName
+      required: true
+      schema:
+        type: string
+    post:
+      operationId: CreateFunctionRelease
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FunctionRelease'
+          description: successful operation
+      security:
+      - BearerAuth:
+        - function_releases:create
+      summary: Create release for a function from an environment
+      tags:
+      - function_releases
   /locations:
     get:
       operationId: ListLocations
@@ -1513,209 +1915,41 @@ paths:
       summary: List all organizations for a provider
       tags:
       - providers
-  /store/agent-tools:
+  /store/functions:
     get:
-      operationId: ListStoreAgentTools
+      operationId: ListStoreAgentFunctions
       responses:
         "200":
           content:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/StoreAgentTool'
+                  $ref: '#/components/schemas/StoreAgentFunction'
                 type: array
           description: successful operation
-      summary: List all store agent tools
+      summary: List all store agent functions
       tags:
       - store
-  /store/agent-tools/{toolName}:
+  /store/functions/{functionName}:
     get:
-      operationId: GetStoreAgentTool
+      operationId: GetStoreAgentFunction
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StoreAgentTool'
+                $ref: '#/components/schemas/StoreAgentFunction'
           description: successful operation
-      summary: Get store agent tool by name
+      summary: Get store agent function by name
       tags:
       - store
     parameters:
-    - description: Name of the tool
+    - description: Name of the function
       in: path
-      name: toolName
+      name: functionName
       required: true
       schema:
         type: string
-  /tools:
-    get:
-      operationId: ListTools
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/Tool'
-                type: array
-          description: successful operation
-      security:
-      - BearerAuth:
-        - tools:list
-      summary: List all tools
-      tags:
-      - tools
-  /tools/{toolName}:
-    delete:
-      operationId: DeleteTool
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Tool'
-          description: successful operation
-      security:
-      - BearerAuth:
-        - tools:delete
-      summary: Delete tool by name
-      tags:
-      - tools
-    get:
-      operationId: GetTool
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Tool'
-          description: successful operation
-      security:
-      - BearerAuth:
-        - tools:get
-      summary: Get tool by name
-      tags:
-      - tools
-    parameters:
-    - description: Name of the tool
-      in: path
-      name: toolName
-      required: true
-      schema:
-        type: string
-    put:
-      operationId: PutTool
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Tool'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Tool'
-          description: successful operation
-      security:
-      - BearerAuth:
-        - tools:update
-      summary: Update tool by name
-      tags:
-      - tools
-  /tools/{toolName}/deployments:
-    get:
-      operationId: ListToolDeployments
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/ToolDeployment'
-                type: array
-          description: successful operation
-      security:
-      - BearerAuth:
-        - tool_deployments:list
-      summary: List all tool deployments
-      tags:
-      - tools
-    parameters:
-    - description: Name of the tool
-      in: path
-      name: toolName
-      required: true
-      schema:
-        type: string
-  /tools/{toolName}/deployments/{environmentName}:
-    delete:
-      operationId: DeleteToolDeployment
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ToolDeployment'
-          description: successful operation
-      security:
-      - BearerAuth:
-        - tool_deployments:delete
-      summary: Delete tool deployment by environment name
-      tags:
-      - tools
-    get:
-      operationId: GetToolDeployment
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ToolDeployment'
-          description: successful operation
-      security:
-      - BearerAuth:
-        - tool_deployments:get
-      summary: Get tool deployment by environment name
-      tags:
-      - tools
-    parameters:
-    - description: Name of the tool
-      in: path
-      name: toolName
-      required: true
-      schema:
-        type: string
-    - description: Name of the environment
-      in: path
-      name: environmentName
-      required: true
-      schema:
-        type: string
-    put:
-      operationId: PutToolDeployment
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ToolDeployment'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ToolDeployment'
-          description: successful operation
-      security:
-      - BearerAuth:
-        - tool_deployments:create
-        - tool_deployments:update
-      summary: Create or update tool deployment by environment name
-      tags:
-      - tools
   /workspaces:
     get:
       operationId: ListWorkspaces
@@ -2326,3 +2560,8 @@ paths:
 security:
 - BearerAuth:
   - admin
+servers:
+- description: Beamlit dev control Plane
+  url: https://api.beamlit.dev/v0
+- description: Beamlit dev inference
+  url: https://run.beamlit.dev

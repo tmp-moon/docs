@@ -1,15 +1,15 @@
-## beamlit delete modelprovider
+## beamlit get functions
 
-Delete a ModelProvider
+Get a Function
 
 ```
-beamlit delete modelprovider [flags]
+beamlit get functions [flags]
 ```
 
 ### Options
 
 ```
-  -h, --help   help for modelprovider
+  -h, --help   help for functions
 ```
 
 ### Options inherited from parent commands
@@ -22,5 +22,5 @@ beamlit delete modelprovider [flags]
 
 ### SEE ALSO
 
-* [beamlit delete](beamlit_delete.md)	 - Delete a resource
+* [beamlit get](beamlit_get.md)	 - Get a resource
 

@@ -6,9 +6,9 @@ description: 'Deploy public or private AI models from HuggingFace.'
 
 ---
 
-The HuggingFace integration allows Beamlit users to **deploy models that are stored on a HuggingFace repository**, either public, gated or private, directly on Beamlit.
+The [HuggingFace](https://huggingface.co/) integration allows Beamlit users to **deploy models that are stored on a HuggingFace repository**, either public, gated or private, directly on Beamlit.
 
-The integration must be set up by an admin in the Integrations section in the workspace settings.
+The integration must be set up by an [admin](../Security/Workspace-access-control.md) in the Integrations section in the [workspace settings](../Security/Workspace-access-control.md).
 
 ## Set up the integration
 
@@ -28,13 +28,13 @@ If you're logged in this way and no HuggingFace integration exists in your works
 
 [image of HuggingFace one-click connect]
 
-The token saved in the workspace has a expiration duration of 30 days. After this period, the token will no longer be valid and you will no longer be able to use the integration to deploy from HuggingFace. We recommend that you setup a dedicated HuggingFace access token at this time.
+The token saved in the workspace has a expiration duration of 30 days. After this period, the token will no longer be valid and you will no longer be able to use the integration to deploy from HuggingFace. We recommend that you setup a [dedicated HuggingFace access token](https://huggingface.co/docs/hub/security-tokens) at this time.
 
 This integration can be revoked at any step by going to the workspace settings.
 
 ### Using a dedicated HuggingFace access token
 
-You will first need to generate a HuggingFace access token from your HuggingFace settings. Give this access token the scope that you want Beamlit to access on HuggingFace (e.g. repositories, etc.). 
+You will first need to generate a [HuggingFace access token](https://huggingface.co/docs/hub/security-tokens) from [your HuggingFace settings](https://huggingface.co/settings/tokens). Give this access token the scope that you want Beamlit to access on HuggingFace (e.g. repositories, etc.). 
 
 In the workspace settings, in the *HuggingFace* integration, paste this token into the “Access token” section.
 
@@ -42,11 +42,11 @@ In the workspace settings, in the *HuggingFace* integration, paste this token in
 
 ## Deploy from HuggingFace
 
-Once you’ve set up the integration in the workspace, any workspace member can use it to reference a HuggingFace repository as the origin for a model deployment. 
+Once you’ve [set up](HuggingFace.md) the integration in the workspace, any workspace member can use it to reference a HuggingFace repository as the origin for a [model deployment](../Models/Model-deployment.md). 
 
 ### Public and private models
 
-When deploying a model, select “Deploy from HuggingFace”. You can search for any **public model**, or any **private model in the organizations & repositories allowed by the integration’s token.**
+When [deploying a model](../Models/Model-deployment.md), select “Deploy from HuggingFace”. You can search for any **public model**, or any **private model in the organizations & repositories allowed by the integration’s token.**
 
 [picture of model deployment]
 

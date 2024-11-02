@@ -1,15 +1,15 @@
-## beamlit delete modelprovider
+## beamlit metrics
 
-Delete a ModelProvider
+Get metrics for a model deployment
 
 ```
-beamlit delete modelprovider [flags]
+beamlit metrics [name] [flags]
 ```
 
 ### Options
 
 ```
-  -h, --help   help for modelprovider
+  -h, --help   help for metrics
 ```
 
 ### Options inherited from parent commands
@@ -22,5 +22,5 @@ beamlit delete modelprovider [flags]
 
 ### SEE ALSO
 
-* [beamlit delete](beamlit_delete.md)	 - Delete a resource
+* [beamlit](beamlit.md)	 - Beamlit CLI is a command line tool to interact with Beamlit APIs.
 
