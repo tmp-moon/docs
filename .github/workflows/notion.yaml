@@ -13,6 +13,22 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Copy API definition
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global url."https://.:${{ secrets.GH_PAT }}@github.com/".insteadOf "https://github.com/"
+          git clone https://github.com/${{ github.repository_owner }}/control-plane
+          cp control-plane/api/api/definitions/controlplane.yml ./api-reference/controlplane.yml
+          rm -rf control-plane
+      - name: Copy Doc definition
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global url."https://.:${{ secrets.GH_PAT }}@github.com/".insteadOf "https://github.com/"
+          git clone https://github.com/${{ github.repository_owner }}/toolkit
+          cp -r toolkit/docs/* ./cli-reference/
+          rm -rf toolkit
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
