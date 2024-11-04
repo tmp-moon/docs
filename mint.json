@@ -47,7 +47,7 @@
       ]
     },
     {
-      "group": "Authentication",
+      "group": "Authentication API",
       "pages": [
         "cli-reference/beamlit_login",
         "cli-reference/beamlit_set-workspace",
@@ -55,13 +55,13 @@
       ]
     },
     {
-      "group": "Run inferences",
+      "group": "Inference API",
       "pages": [
         "cli-reference/beamlit_run"
       ]
     },
     {
-      "group": "Manage resources",
+      "group": "Management API",
       "pages": [
         "cli-reference/beamlit_apply",
         "cli-reference/beamlit_get-workspace",
