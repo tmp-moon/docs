@@ -41,6 +41,13 @@
   ],
   "navigation": [
     {
+      "group": "Get Started",
+      "pages": [
+        "Overview",
+        "Get-started"
+      ]
+    },
+    {
       "group": "Overview",
       "pages": [
         "api-reference/introduction"
@@ -80,13 +87,6 @@
         "cli-reference/beamlit_delete_modelprovider",
         "cli-reference/beamlit_delete_policy",
         "cli-reference/beamlit_delete_tool"
-      ]
-    },
-    {
-      "group": "Get Started",
-      "pages": [
-        "Overview",
-        "Get-started"
       ]
     },
     {
