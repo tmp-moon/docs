@@ -1,33 +1,20 @@
 ---
 date: 2024-11-06T14:35:20+01:00
-title: "beamlit apply"
-slug: beamlit_apply
+title: "beamlit workspaces"
+slug: beamlit_workspaces
 ---
-## beamlit apply
+## beamlit workspaces
 
-Apply a configuration to a resource by file
-
-### Synopsis
-
-Apply a configuration to a resource by file
+List all workspaces with the current workspace highlighted, set optionally a new current workspace
 
 ```
-beamlit apply [flags]
-```
-
-### Examples
-
-```
-
-			beamlit apply -f ./my-deployment.yaml
-		
+beamlit workspaces [workspace] [flags]
 ```
 
 ### Options
 
 ```
-  -f, --file string   Path to YAML file to apply
-  -h, --help          help for apply
+  -h, --help   help for workspaces
 ```
 
 ### Options inherited from parent commands

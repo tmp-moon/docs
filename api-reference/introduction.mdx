@@ -1,33 +1,33 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+
+title: 'Overview'
+
+description: 'Interact with Beamlit through APIs.'
+
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+Beamlit APIs allow you to interact with all resources inside of and across your workspace(s). 
 
-## Welcome
+## Get started
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+Authentication to the Beamlit APIs can either be done using [API keys](../Security/Access-tokens.md) created from the Beamlit console, or through a [classic OAuth 2.0 flow](../Security/Access-tokens.md).
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+**API keys** allow you to get started quickly. Simply [generate an API key](../Security/Access-tokens.md) for your user or service account and use the API key in place of the authorization headers `Api-Key` or `X-Beamlit-Api-Key` in any call to the Beamlit APIs. 
 
-## Authentication
+For example, to list models:
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
-
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
 ```
+curl 'https://api.beamlit.com/v0/models' \
+  -H 'accept: application/json, text/plain, */*' \
+  -H 'x-beamlit-api-key: YOUR-API-KEY'
+```
+
+To use **short-lived JWTs**, see [the guide on using an OAuth 2.0 flow](../Security/Access-tokens.md).
+
+## Beamlit APIs
+
+See the reference for any of the following APIs:
+
+<Card title="Inference API" icon="earth-americas" href="/api-reference/inference" > Run inferences on your deployments by API. </Card>
+
+<Card title="Management API" icon="cubes" href="/api-reference/environments/list-environments" > API to manage environments, policies, models and much more.</Card>

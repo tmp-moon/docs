@@ -9,29 +9,9 @@ This tutorial will show you how to use the Beamlit console to deploy a custom mo
 
 ## Guide
 
-### (Development phase) Connect to HuggingFace with a personal account
+### Setup the workspace integration with HuggingFace
 
-<Note>This method allows to get started fast but is not recommended for production.</Note>
-
-Go to Global Inference Network > Models within your Beamlit workspace. Once there, start creating a new model. 
-
-[picture of models + create]
-
-Select the **Deploy from HuggingFace** option.
-
-You'll need to connect your HuggingFace account to Beamlit. Click on **Connect my HuggingFace account** to proceed. 
-
-[picture of hf]
-
-You will be prompted to sign in in a new window using your personal HuggingFace credentials.
-
-An access token will be saved as a [workspace integration](../Integrations/HuggingFace.md), allowing for access by you and other members of the workspace. This token has an expiration duration of **30 days**, after which it will no longer be valid. 
-
-<Tip>To launch a production-grade version of your model, you should connect an HuggingFace token in the Integrations in the workspace settings. This is explained below.</Tip>
-
-### (Production-grade) Improve to a workspace integration
-
-For the connection to stay valid for longer than 30 days, you must use a [user access token](https://huggingface.co/docs/hub/security-tokens) generated on the HuggingFace console.
+To setup an integration with HuggingFace, you must use a [user access token](https://huggingface.co/docs/hub/security-tokens) generated on the HuggingFace console.
 
 Go in **Workspace Settings > Integrations**, and look for *HuggingFace*.
 
@@ -67,8 +47,10 @@ That’s it! Your model is deployed and ready to be called using the inference e
 
 Use your model deployment’s [inference endpoint](../Models/Query-a-model.md) to make an inference request. The base URL should look like the following:
 
-`edge-gw.beamlit.net/your-workspace/your-model`
+`run.beamlit.com/your-workspace/your-model`
 
 If your HuggingFace model implements any other endpoint, they will be served on the URL above. For example:
 
-`edge-gw.beamlit.net/your-workspace/your-model/v1/chat/completions`
+`run.beamlit.com/your-workspace/your-model/v1/chat/completions`
+
+For further reference, read our documentation about [model deployments](../Models/Model-deployment.md).

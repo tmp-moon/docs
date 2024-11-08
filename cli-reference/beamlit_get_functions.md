@@ -1,20 +1,20 @@
 ---
 date: 2024-11-06T14:35:20+01:00
-title: "beamlit get locations"
-slug: beamlit_get_locations
+title: "beamlit get functions"
+slug: beamlit_get_functions
 ---
-## beamlit get locations
+## beamlit get functions
 
-Get a Location
+Get a Function
 
 ```
-beamlit get locations [flags]
+beamlit get functions [flags]
 ```
 
 ### Options
 
 ```
-  -h, --help   help for locations
+  -h, --help   help for functions
 ```
 
 ### Options inherited from parent commands

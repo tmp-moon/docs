@@ -1,20 +1,20 @@
 ---
 date: 2024-11-06T14:35:20+01:00
-title: "beamlit get locations"
-slug: beamlit_get_locations
+title: "beamlit delete function"
+slug: beamlit_delete_function
 ---
-## beamlit get locations
+## beamlit delete function
 
-Get a Location
+Delete a Function
 
 ```
-beamlit get locations [flags]
+beamlit delete function [flags]
 ```
 
 ### Options
 
 ```
-  -h, --help   help for locations
+  -h, --help   help for function
 ```
 
 ### Options inherited from parent commands
@@ -27,5 +27,5 @@ beamlit get locations [flags]
 
 ### SEE ALSO
 
-* [beamlit get](beamlit_get.md)	 - Get a resource
+* [beamlit delete](beamlit_delete.md)	 - Delete a resource
 
