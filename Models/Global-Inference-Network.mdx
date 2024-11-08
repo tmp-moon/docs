@@ -25,7 +25,7 @@ On a high-level view, there are several modes that the Global Inference Network 
 ![image.png](Global-Inference-Network/image.png)
 
 - **Mode 1: Fully managed Beamlit deployment.** Directly deploy a model on Beamlit to make it available on the Global Inference Network. Consumers have a fully serverless endpoint to access the models. Read our guide on how to deploy models on Beamlit.
-- **Mode 2: Global hybrid deployment.** *(Available soon!)* Attach your private clusters to the Global Inference Network and federate multi-region deployments behind our global networking system. Deployment policies allow you to configure where and how models are deployed. Read our guide on how to attach locations on your Global Inference Network.
+- **Mode 2: Global hybrid deployment.** Attach your private clusters to the Global Inference Network through the Beamlit operator, and federate multi-region deployments behind our global networking system. Read our guide on XXX
 - **Mode 3: Offload on Beamlit**. This mode allows for **minimal footprint** on your stack and is fully transparent for your consumers. Through a Beamlit operator, you can reference Kubernetes deployments from your own private cluster and offload them to Beamlit Global Inference Network based on conditions, for e.g. in case of sudden traffic burst. Read our guide on how to make your models overflow on Beamlit.
 - **Mode 4: On-prem Replication**. Through a Beamlit operator, you can reference Kubernetes deployments from your own private cluster and offload them to another of your private cluster in case of traffic burst. This mode entirely relies on open-source software. Read more on the Github page for the open-source Beamlit operator.
 

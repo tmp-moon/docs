@@ -26,7 +26,7 @@ When no policies are enforced on a type, all options for this type are considere
 
 Policies have a **type**, allowing multiple policies to drive various deployment strategies without colliding. Typically, you can easily enforce a policy on the execution location and a policy on the underlying hardware at the same time.
 
-There are currently two types of policies: **location-based** and **GPU-based**.
+There are currently two types of policies: **location-based** and **GPU-based**. FLAVOR
 
 ### Location policies
 
@@ -45,6 +45,8 @@ Refer to our reference on policy GPUs below for more information.
 
 ### GPU policies
 
+SWITCH TO FLAVOR
+
 GPU policies give control over which underlying accelerator (GPU) your workloads will be executed on. 
 
 For example:
@@ -53,6 +55,10 @@ For example:
 - Execute only on NVIDIA L4 or NVIDIA T4
 
 Refer to our reference on policy GPUs below for more information.
+
+### Policies target
+
+TO COMPLETE
 
 ## Create a policy
 
@@ -66,7 +72,9 @@ Policies can also be created using the Beamlit console, the Beamlit APIs and thr
 
 Attaching a policy to a workload enforces it on the workload. Policies can be attached either to **environments**, or to specific **model deployments** (provided they do not collide with the environment-level policies).
 
-When no policy on a certain type is applied to an environment or a model deployment, **all options for this type are considered allowed**. Workloads are executed anywhere using Global Inference Network’s default optimizations.
+WHAT DOES THE TARGET DO
+
+When no policy on a certain type is applied to an environment or a model deployment, **all options for this type are considered allowed**. Workloads are executed using Global Inference Network’s default optimizations.
 
 ### Attaching multiple policies
 
@@ -74,7 +82,7 @@ You can attach multiple policies to the same environment or model deployment, or
 
 In this situation, their combined effect is the **UNION** of all of their effects for the same type of policy (a.k.a *OR* clause), and **INTERSECTION** across all types of policies (a.k.a *AND* clause).
 
-WHAT IF COMBINING ENVIRONMENT AND DEPLOYMENT
+WHAT IF COMBINING ENVIRONMENT AND DEPLOYMENT → MANDATORY VS OPTIONAL (reusable block?)
 
 For example:
 
@@ -88,13 +96,15 @@ For example:
     - A and C: then workloads will only execute in any location in the USA, only on T4 GPUs.
     - A and B and C: then workloads will only execute in Tokyo, Japan, and in any location in the USA (including San Francisco) — only on T4 GPUs.
 - if we combine environment-level policies and deployment-level policies:
-    - to be completed??
+    - to be completed
 
-max amount of policies?
+~~max amount of policies?~~
 
 ### Attaching a policy to an environment
 
 Attaching a policy to an environment **enforces it on all models** that are deployed on this environment.
+
+HOW TO SPECIFY MANDATORY VS ENFORCE
 
 Attach a policy to an environment using the following CLI command:
 
@@ -106,6 +116,8 @@ Policies can also be attached using the Beamlit console, the Beamlit APIs and th
 
 Attach a policy to a model deployment using the following CLI command:
 
+refer to section ‘multiple policies’ from here
+
 < TO COMPLETE >
 
 Policies can also be attached using the Beamlit console, the Beamlit APIs and through the Beamlit operator.
@@ -114,12 +126,13 @@ Policies can also be attached using the Beamlit console, the Beamlit APIs and th
 
 Below is the list of official names to build policies.
 
-### GPUs
+### Flavors
 
-| **Name in policy** | **GPU** |
-| --- | --- |
-|  |  |
-|  |  |
+| **Code** | **Type** | **Flavor Name** |
+| --- | --- | --- |
+|  | cpu |  |
+|  | gpu |  |
+|  | … |  |
 
 ### Locations
 

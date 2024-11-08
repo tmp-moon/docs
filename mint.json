@@ -54,11 +54,23 @@
       ]
     },
     {
+      "group": "Inference API",
+      "pages": [
+        "api-reference/inference"
+      ]
+    },
+    {
+      "group": "Overview",
+      "pages": [
+        "cli-reference/introduction"
+      ]
+    },
+    {
       "group": "Authentication API",
       "pages": [
         "cli-reference/beamlit_login",
         "cli-reference/beamlit_set-workspace",
-        "cli-reference/beamlit_logout"        
+        "cli-reference/beamlit_logout"
       ]
     },
     {
